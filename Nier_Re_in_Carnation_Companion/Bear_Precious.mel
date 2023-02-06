@@ -1,0 +1,76 @@
+proc Bear_Precious(){
+
+    string $S_Cloth = "support";
+    string $M_Cloth_support[] = `polyDisc`;
+    rename $M_Cloth_support[0] $S_Cloth;
+    setAttr ($S_Cloth + ".translateY") 4.5;
+    setAttr ($S_Cloth + ".scaleZ") 0.38;
+    setAttr ($S_Cloth + ".scaleX") 0.38;
+    setAttr ($S_Cloth + ".scaleY") 0.38;
+    select -clear;
+
+    string $S_liquid_01 = "body01";
+    string $S_liquid_02 = "body02";
+    string $M_liquid_body[] = `polySphere`;
+    rename $M_liquid_body[0] $S_liquid_01;
+    rename $M_liquid_body[1] $S_liquid_02;
+    setAttr ($S_liquid_02 + ".subdivisionsAxis") (24);
+    setAttr ($S_liquid_02 + ".subdivisionsHeight") (24);
+    move -relative 0 3 0 $S_liquid_01;
+    createNCloth 0;
+    sets -e -forceElement initialShadingGroup;
+    
+    //玉 点セレクト
+    select -replace $S_liquid_01;
+    select -replace $S_liquid_01.vtx[480:503];
+    select -deselect $S_liquid_01;
+
+    //円盤 セレクト
+    select -add $S_Cloth;
+
+    //Poitn to surface
+    createNConstraint pointToSurface 0;
+
+    //再生範囲 調整
+    playbackOptions -animationEndTime 30 -animationStartTime 0 -loop "once";
+    currentTime 9;
+
+}
+
+file -f -new;
+Bear_Precious();
+
+//名前付けの法則
+//Maya上のプリミティブには先頭に「M」をつける
+//Vscode上で変数を設定するときに「S」をつける
+
+// DynClothMenu MayaWindow|mainNClothMenu;
+// nClothCreate;
+// performCreateNCloth 0;
+// createNCloth 0;
+// sets -e -forceElement initialShadingGroup;
+// // Result: initialShadingGroup
+// // Result: nClothShape1
+// // Result: doCreateNCloth 0
+// setFilterScript "initialShadingGroup";
+// // Result: 0
+// setFilterScript "initialParticleSE";
+// // Result: 0
+// setFilterScript "defaultLightSet";
+// // Result: 1
+// setFilterScript "defaultObjectSet";
+// // Result: 1
+// nodeType -inherited -isTypeName nucleus;
+// // Result: containerBase entity dagNode transform nucleus
+// autoUpdateAttrEd;
+// CBselectionChanged;
+// updateAnimLayerEditor("AnimLayerTab");
+// statusLineUpdateInputField;
+// if (!`exists polyNormalSizeMenuUpdate`) {eval "source buildDisplayMenu";} polyNormalSizeMenuUpdate;
+// dR_updateCounter;
+// dR_updateCommandPanel;
+// timeField -edit -value `currentTime -query` TimeSlider|MainTimeSliderLayout|formLayout8|timeField1;
+// // Result: TimeSlider|MainTimeSliderLayout|formLayout8|timeField1
+// timeField -edit -value `currentTime -query` TimeSlider|MainTimeSliderLayout|formLayout8|timeField1;
+// // Result: TimeSlider|MainTimeSliderLayout|formLayout8|timeField1
+
