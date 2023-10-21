@@ -7,6 +7,9 @@ import * as THREE from 'three'
 import { useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import Link_to_Movie from '../Link_Movie'
+import { useRecoilState } from 'recoil'
+import { Text_Hovered } from '../Bear_atom'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -45,7 +48,6 @@ type ActionName = 'No_Motion' | 'Standby_Motion'
 interface GLTFAction extends THREE.AnimationClip {
   name: ActionName
 }
-// type GLTFActions = Record<ActionName, THREE.AnimationAction>
 
 // type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['skinnedMesh'] | JSX.IntrinsicElements['bone']>>
 
@@ -55,6 +57,7 @@ const Bear_Precious_Baked = (props: JSX.IntrinsicElements['group']) => {
   const { actions } = useAnimations(animations, group)
 
   const [ismoving, setIsMoving] = useState(true)
+  const [ishovered,] = useRecoilState(Text_Hovered)
 
   const moved = () => {
     if (actions['Standby_Motion'] == null) {
@@ -69,9 +72,11 @@ const Bear_Precious_Baked = (props: JSX.IntrinsicElements['group']) => {
     }
   }
 
+  const stoped = () => { }
+
   return (
     <group ref={group} {...props} dispose={null}>
-      <group name="Scene" onClick={moved}>
+      <group name="Scene" onClick={ishovered ? stoped : moved}>
         <group name="Armature" position={[0, 0.159, -0.193]} rotation={[Math.PI / 2, 0, 0]} scale={0.161}>
           <primitive object={nodes.Root_Bone} />
           <primitive object={nodes.Arm_Controller_L} />
@@ -85,6 +90,7 @@ const Bear_Precious_Baked = (props: JSX.IntrinsicElements['group']) => {
           <primitive object={nodes.Elbow_Controller_L} />
           <primitive object={nodes.Elbow_Controller_R} />
           <group name="Bear_Pretty">
+            <Link_to_Movie></Link_to_Movie>
             <skinnedMesh name="Cube003" geometry={nodes.Cube003.geometry} material={materials.Bear_base} skeleton={nodes.Cube003.skeleton} />
             <skinnedMesh name="Cube003_1" geometry={nodes.Cube003_1.geometry} material={materials.Striped_Pattern} skeleton={nodes.Cube003_1.skeleton} />
             <skinnedMesh name="Cube003_2" geometry={nodes.Cube003_2.geometry} material={materials.Nose} skeleton={nodes.Cube003_2.skeleton} />
