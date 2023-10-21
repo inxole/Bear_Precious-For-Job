@@ -12,7 +12,11 @@ export const Field = () => {
     }, [camera])
     return (
         <Suspense fallback={null}>
-            <OrbitControls target={new Vector3(0, 0.4, 0)} />
+            <OrbitControls
+                minDistance={0.6}
+                maxDistance={5}
+                target={new Vector3(0, 0.4, 0)}
+            />
             <PerspectiveCamera makeDefault position={[1, 1, 1]}>
             </PerspectiveCamera>
 
