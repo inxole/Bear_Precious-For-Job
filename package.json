@@ -11,24 +11,24 @@
   },
   "dependencies": {
     "@react-three/drei": "^9.88.2",
-    "@react-three/fiber": "^8.14.5",
+    "@react-three/fiber": "^8.15.10",
     "gltfjsx": "^6.2.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recoil": "^0.7.7",
-    "three": "^0.157.0"
+    "three": "^0.158.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
-    "@types/three": "^0.157.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
+    "@types/three": "^0.158.2",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.45.0",
+    "eslint": "^8.53.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-react-refresh": "^0.4.4",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.5.0"
   }
 }
