@@ -10,6 +10,7 @@ export const Field = () => {
     useEffect(() => {
         camera.lookAt(new Vector3(0, 1, 0))
     }, [camera])
+
     return (
         <Suspense fallback={null}>
             <OrbitControls
@@ -33,3 +34,18 @@ export const Field = () => {
         </Suspense>
     )
 }
+
+// const onw = () => {
+//     console.log(onwheel)
+// }
+
+// window.addEventListener('wheel', function () {
+//     onw()
+//     //????
+// }, { passive: false })
+
+//参考
+//https://www.uriports.com/blog/easy-fix-for-unable-to-preventdefault-inside-passive-event-listener/
+//https://qiita.com/teamhimeH/items/d5c3e3dfcc6cb63456c6
+//https://stackoverflow.com/questions/42101723/unable-to-preventdefault-inside-passive-event-listener
+//https://blog.jxck.io/entries/2016-06-09/passive-event-listeners.html

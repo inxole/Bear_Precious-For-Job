@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber"
-import { Field } from "./field"
+import { Field } from "./Field"
 
 function App() {
   return (
