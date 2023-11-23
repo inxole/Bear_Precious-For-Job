@@ -1,55 +1,34 @@
-import { ContactShadows, Environment, OrbitControls, OrbitControlsChangeEvent, PerspectiveCamera } from "@react-three/drei"
+import { ContactShadows, Environment, OrbitControls, PerspectiveCamera } from "@react-three/drei"
 import { Suspense, useEffect } from "react"
 import { Vector3 } from "three"
-import { ThreeEvent, useThree } from "@react-three/fiber"
+import { useThree } from "@react-three/fiber"
 import Bear_Pretty_Latest from "./Model/Bear_Pretty"
+import Link_to_Movie from "./Link_Movie"
 // import * as THREE from "three"
 // import { RippleRenderer } from "./Distortion"
 
 export const Field = () => {
+
     const { camera } = useThree()
     const viewinfo = window.document
     useEffect(() => {
         camera.lookAt(new Vector3(0, 1, 0))
     }, [camera])
 
-    interface ExtendedOrbitControlsProps {
-        id: string;
-        minDistance: number
-        maxDistance: number
-        target: Vector3
-        enablePan: boolean
-        domElement: HTMLElement
-        onChange: ((e: OrbitControlsChangeEvent | undefined) => void) | undefined
-        onWheel: ((event: ThreeEvent<WheelEvent>) => void) | undefined
-    }
-
-    const ExtendedOrbitControls: React.FC<ExtendedOrbitControlsProps> = ({ ...props }) => {
-        return <OrbitControls {...props} />
-    }
-
-    const WheelAction = document.getElementById('test')
-    const Wheelpool = () => {
-        WheelAction?.addEventListener('wheel', function OnMouseWheel(event: WheelEvent) {
-            event.preventDefault()
-        }, { passive: true })
-    }
-
     return (
         <Suspense fallback={null}>
-            <ExtendedOrbitControls
-                id={"test"}
+            <OrbitControls
                 minDistance={0.6}
                 maxDistance={5}
                 target={new Vector3(0, 0.4, 0)}
                 enablePan={false}
+                enableZoom={false}
                 domElement={viewinfo.documentElement}
-                onChange={() => { Wheelpool }}
-                onWheel={() => { Wheelpool }}
             />
             <PerspectiveCamera makeDefault position={[1, 1, 1]}>
             </PerspectiveCamera>
 
+            <Link_to_Movie></Link_to_Movie>
             <Bear_Pretty_Latest position={[0, 0, 0]} ></Bear_Pretty_Latest>
 
             <ContactShadows
