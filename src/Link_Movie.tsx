@@ -5,7 +5,7 @@ const Link_to_Movie = () => {
     return (
         <mesh>
             <Html
-                scale={0.01}
+                scale={0.1}
                 rotation={[-Math.PI / 2, 0, 0]}
                 position={[0, 0, 0]}
                 transform
@@ -14,29 +14,32 @@ const Link_to_Movie = () => {
                 <div
                     onWheel={(e) => e.stopPropagation()}
                     style={{
+                        position: 'absolute',
                         pointerEvents: 'auto',
                         cursor: 'pointer',
-                        width: '6000px',
-                        height: '1500px',
-                        fontSize: '1000px',
+                        width: '600px',
+                        height: '150px',
+                        left: '50%',
+                        top: '50%',
+                        fontSize: '100px',
                         fontWeight: 100,
                         background: 'black',
                         color: '#f0f0f0',
-                        padding: '20px 100px',
-                        borderRadius: '200px',
-                        letterSpacing: '10px',
-                        display: 'flex',
+                        padding: '2px 10px',
+                        borderRadius: '20px',
                         justifyContent: 'center',
-                        alignItems: 'center',
-                        gap: '50px'
+                        textAlign: 'center',
+                        gap: '5px'
                     }}
                 >
-                    <a
-                        href="https://www.google.com" target="_blank" rel="noopener noreferrer"
-                    >動画へ</a>
+                    <a 
+                    // href={"https://www.google.com"} target={"_blank"} rel={"noopener noreferrer"}
+                    >
+                        動画へ
+                    </a>
                 </div>
             </Html>
-        </mesh>
+        </mesh >
     )
 }
 

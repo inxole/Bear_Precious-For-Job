@@ -3,7 +3,6 @@ import { Suspense, useEffect } from "react"
 import { Vector3 } from "three"
 import { useThree } from "@react-three/fiber"
 import Bear_Pretty_Latest from "./Model/Bear_Pretty"
-import Link_to_Movie from "./Link_Movie"
 // import * as THREE from "three"
 // import { RippleRenderer } from "./Distortion"
 
@@ -20,16 +19,14 @@ export const Field = () => {
             <OrbitControls
                 minDistance={0.6}
                 maxDistance={5}
-                target={new Vector3(0, 0.4, 0)}
+                target={new Vector3(0, 0.6, 0)}
                 enablePan={false}
                 enableZoom={false}
                 domElement={viewinfo.documentElement}
             />
-            <PerspectiveCamera makeDefault position={[1, 1, 1]}>
-            </PerspectiveCamera>
+            <PerspectiveCamera makeDefault position={[1, 1, 1]}/>
 
-            <Link_to_Movie></Link_to_Movie>
-            <Bear_Pretty_Latest position={[0, 0, 0]} ></Bear_Pretty_Latest>
+            <Bear_Pretty_Latest position={[0, 0, 0]} />
 
             <ContactShadows
                 opacity={0.5}
