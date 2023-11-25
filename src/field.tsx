@@ -3,11 +3,13 @@ import { Suspense, useEffect } from "react"
 import { Vector3 } from "three"
 import { useThree } from "@react-three/fiber"
 import Bear_Pretty_Latest from "./Model/Bear_Pretty"
+import { Button_Click } from "./Bear_atom"
+import { useRecoilState } from "recoil"
 // import * as THREE from "three"
 // import { RippleRenderer } from "./Distortion"
 
 export const Field = () => {
-
+    const [a_u_pushed,] = useRecoilState(Button_Click)
     const { camera } = useThree()
     const viewinfo = window.document
     useEffect(() => {
@@ -21,10 +23,10 @@ export const Field = () => {
                 maxDistance={5}
                 target={new Vector3(0, 0.6, 0)}
                 enablePan={false}
-                enableZoom={false}
+                enableZoom={a_u_pushed ? true : false}
                 domElement={viewinfo.documentElement}
             />
-            <PerspectiveCamera makeDefault position={[1, 1, 1]}/>
+            <PerspectiveCamera makeDefault position={[1, 1, 1]} />
 
             <Bear_Pretty_Latest position={[0, 0, 0]} />
 

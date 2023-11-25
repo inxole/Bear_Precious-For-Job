@@ -2,6 +2,9 @@ import { Canvas } from "@react-three/fiber"
 import { Field } from "./Field"
 import { Loader } from "@react-three/drei"
 import { Button, styled } from "@mui/material"
+import { useRecoilState } from "recoil"
+import { Button_Click } from "./Bear_atom"
+import { useState } from "react"
 
 const GradientButton = styled(Button)`
   background: linear-gradient(45deg, #ffa000 30%, #ffc107 90%);
@@ -14,12 +17,22 @@ const GradientButton = styled(Button)`
 `
 
 function App() {
+  const [count, setCount] = useState(0)
+  const [, setA_U_pushed] = useRecoilState(Button_Click)
+  const A_U_Click = () => {
+    setA_U_pushed((x) => { return x })
+    if (count % 2 == 0) {
+      setA_U_pushed(true)
+    } else { setA_U_pushed(false) }
+  }
+
   const loaderStyle = {
     position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)'
   }
+
   return (
     <div className="Bear_Precious" style={{
       position: 'relative',
@@ -45,6 +58,7 @@ function App() {
           boxShadow: "0 3px 5px 2px rgba(255, 51, 102, 0.3)",
           transition: "box-shadow 0.3s ease-in-out",
         }}
+        onClick={() => { A_U_Click(), setCount(count + 1) }}
       >Zoom</GradientButton>
       <Canvas>
         <Field></Field>
