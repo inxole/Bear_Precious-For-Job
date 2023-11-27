@@ -90,7 +90,7 @@ const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group']) => {
           <primitive object={nodes.Elbow_Controller_L} />
           <primitive object={nodes.Elbow_Controller_R} />
           <group name="Bear_Pretty" >
-            <group position={[-0.7, 1, -5.5]}>
+            <group position={[-0.8, 1, -5.5]}>
               <Link_to_Movie ></Link_to_Movie>
             </group>
             <skinnedMesh name="Cube003" geometry={nodes.Cube003.geometry} material={materials.Bear_base} skeleton={nodes.Cube003.skeleton} />

@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber"
 import { Field } from "./Field"
 import { Loader } from "@react-three/drei"
-import { Button, styled } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, styled } from "@mui/material"
 import { useRecoilState } from "recoil"
 import { Button_Click } from "./Bear_atom"
 import { useState } from "react"
@@ -13,12 +13,12 @@ const GradientButton = styled(Button)`
   color: white;
   height: 48px;
   padding: 0 30px;
-  box-shadow: 0 3px 5px 2px rgba(255, 160, 0, 0.3);
-`
+  box-shadow: 0 3px 5px 2px rgba(255, 160, 0, 0.3);`
 
 function App() {
   const [count, setCount] = useState(0)
-  const [, setA_U_pushed] = useRecoilState(Button_Click)
+  const [a_u_pushed, setA_U_pushed] = useRecoilState(Button_Click)
+  const loaderStyle = { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
   const A_U_Click = () => {
     setA_U_pushed((x) => { return x })
     if (count % 2 == 0) {
@@ -26,20 +26,19 @@ function App() {
     } else { setA_U_pushed(false) }
   }
 
-  const loaderStyle = {
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)'
+  const [open, setOpen] = useState(false)
+  const handleClickOpen = () => {
+    setCount((x) => { return x })
+    if (count == 0) {
+      setOpen(true)
+    } else {
+      setOpen(false)
+    }
   }
+  const handleClose = () => { setOpen(false) }
 
   return (
-    <div className="Bear_Precious" style={{
-      position: 'relative',
-      height: '100vh',
-      overflow: 'hidden'
-    }}
-    >
+    <div className="Bear_Precious" style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
       <GradientButton
         variant="contained"
         sx={{
@@ -53,18 +52,54 @@ function App() {
           border: 3,
           color: "white",
           height: "48px",
-          width: '100px',
+          width: '150px',
           padding: "0 30px",
           boxShadow: "0 3px 5px 2px rgba(255, 51, 102, 0.3)",
           transition: "box-shadow 0.3s ease-in-out",
         }}
-        onClick={() => { A_U_Click(), setCount(count + 1) }}
-      >Zoom</GradientButton>
+        onClick={() => { A_U_Click(), setCount(count + 1), handleClickOpen(), console.log(count) }}
+      >{a_u_pushed ? 'Zoom ON' : 'Zoom OFF'}</GradientButton>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        PaperProps={{
+          style: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            maxHeight: '100%',
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            height: '200px',
+            overflow: 'hidden'
+          },
+        }}
+      >
+        <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center' }}>
+          ZoomのON・OFFを切り替えます。
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description" sx={{ textAlign: 'center', fontSize: '18px' }}>
+            滑らかに描画されないかもしれません。
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: 'center', height: "48px" }}>
+          <Button onClick={handleClose} autoFocus>
+            閉じる
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Canvas>
         <Field></Field>
       </Canvas>
       <Loader innerStyles={loaderStyle} />
-    </div>
+    </div >
   )
 }
 
