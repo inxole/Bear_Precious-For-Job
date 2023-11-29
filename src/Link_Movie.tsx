@@ -6,7 +6,7 @@ const Link_to_Movie = () => {
         <mesh>
             <Html
                 scale={0.1}
-                rotation={[-Math.PI / 2, 0, 0]}
+                rotation={[0, 0, 0]}
                 position={[0, 0, 0]}
                 transform
                 pointerEvents={'none'}

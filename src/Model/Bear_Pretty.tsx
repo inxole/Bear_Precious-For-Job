@@ -9,7 +9,6 @@ import { useGLTF, useAnimations } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { useRecoilState } from 'recoil'
 import { Text_Hovered } from '../Bear_atom'
-import Link_to_Movie from '../Link_Movie'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -90,9 +89,6 @@ const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group']) => {
           <primitive object={nodes.Elbow_Controller_L} />
           <primitive object={nodes.Elbow_Controller_R} />
           <group name="Bear_Pretty" >
-            <group position={[-0.8, 1, -5.5]}>
-              <Link_to_Movie ></Link_to_Movie>
-            </group>
             <skinnedMesh name="Cube003" geometry={nodes.Cube003.geometry} material={materials.Bear_base} skeleton={nodes.Cube003.skeleton} />
             <skinnedMesh name="Cube003_1" geometry={nodes.Cube003_1.geometry} material={materials.Striped_Pattern} skeleton={nodes.Cube003_1.skeleton} />
             <skinnedMesh name="Cube003_2" geometry={nodes.Cube003_2.geometry} material={materials.Nose} skeleton={nodes.Cube003_2.skeleton} />
