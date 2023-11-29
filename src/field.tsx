@@ -39,7 +39,7 @@ export const Field = () => {
             <PerspectiveCamera makeDefault position={[1, 1, 1]} />
 
             <Bear_Pretty_Latest position={[0, 0, 0]} />
-            <mesh geometry={hide_geometry} material={hide_material} scale={0.2} position={[-0.16, 1.15, 0]}>
+            <mesh geometry={hide_geometry} material={hide_material} scale={0.2} position={[-0.16, 1.12, 0]}>
                 <Link_to_Movie ></Link_to_Movie>
             </mesh>
 
