@@ -32,14 +32,14 @@ const FallbackComponent = () => {
             width: '100%',
             backgroundColor: 'white'
         }}>
-            <group>
+            <div>
                 <p style={{ fontSize: '25px', color: 'red', fontWeight: 'bold' }}>GPUを使用していない可能性があります。</p>
                 <p >Chromeを使用している場合は、「設定」⇒「システム」に進み</p>
                 <p >「ハードウェア アクセラレーションが使用可能な場合は使用する」を有効にしてください。</p>
                 <p style={{ fontSize: '20px' }}>もしくは</p>
                 <p >Firefoxを使用している場合は、「設定」⇒「一般」⇒「パフォーマンス」を探し</p>
                 <p >「推奨のパフォーマンス設定を使用する」を有効にしてください。</p>
-            </group>
+            </div>
         </div>
     )
 }
