@@ -8,7 +8,7 @@ import { useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { useRecoilState } from 'recoil'
-import { Text_Hovered } from '../Bear_atom'
+import { Bear_Hovered } from '../Bear_atom'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -56,7 +56,8 @@ const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group']) => {
   const { actions } = useAnimations(animations, group)
 
   const [ismoving, setIsMoving] = useState(true)
-  const [ishovered,] = useRecoilState(Text_Hovered)
+  const [isClicked,] = useState(false)
+  const [, setIsHovered] = useRecoilState(Bear_Hovered)
 
   const moved = () => {
     if (actions['Standby_Motion'] == null) {
@@ -74,7 +75,7 @@ const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group']) => {
   const stoped = () => { }
 
   return (
-    <group ref={group} {...props} dispose={null} onClick={ishovered ? stoped : moved}>
+    <group ref={group} {...props} dispose={null} onClick={isClicked ? stoped : moved} onPointerOver={() => { setIsHovered(true), console.log('e') }} onPointerLeave={() => { setIsHovered(false),console.log('o') }}>
       <group name="Scene">
         <group name="Armature" position={[0, 0.159, -0.193]} rotation={[Math.PI / 2, 0, 0]} scale={0.161}>
           <primitive object={nodes.Root_Bone} />

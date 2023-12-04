@@ -34,7 +34,7 @@ const Zoom_ON_OFF = () => {
     const handleClose = () => { setOpen(false) }
 
     return (
-        <group>
+        <span>
             <GradientButton
                 variant="contained"
                 sx={{
@@ -91,7 +91,7 @@ const Zoom_ON_OFF = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </group >
+        </span >
     )
 }
 
