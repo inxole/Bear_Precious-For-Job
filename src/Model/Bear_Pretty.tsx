@@ -75,7 +75,7 @@ const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group']) => {
   const stoped = () => { }
 
   return (
-    <group ref={group} {...props} dispose={null} onClick={isClicked ? stoped : moved} onPointerOver={() => { setIsHovered(true), console.log('e') }} onPointerLeave={() => { setIsHovered(false),console.log('o') }}>
+    <group ref={group} {...props} dispose={null} onClick={isClicked ? stoped : moved} onPointerOver={() => { setIsHovered(true) }} onPointerLeave={() => { setIsHovered(false) }}>
       <group name="Scene">
         <group name="Armature" position={[0, 0.159, -0.193]} rotation={[Math.PI / 2, 0, 0]} scale={0.161}>
           <primitive object={nodes.Root_Bone} />

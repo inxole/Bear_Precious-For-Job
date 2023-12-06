@@ -53,7 +53,7 @@ const Zoom_ON_OFF = () => {
                     boxShadow: "0 3px 5px 2px rgba(255, 51, 102, 0.3)",
                     transition: "box-shadow 0.3s ease-in-out",
                 }}
-                onClick={() => { A_U_Click(), setCount(count + 1), handleClickOpen(), console.log(count) }}
+                onClick={() => { A_U_Click(), setCount(count + 1), handleClickOpen() }}
             >{a_u_pushed ? 'Zoom ON' : 'Zoom OFF'}</GradientButton>
 
             <Dialog
