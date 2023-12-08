@@ -18,9 +18,9 @@ const Link_to_Movie = () => {
         const isFirefox = navigator.userAgent.includes("Firefox")
         if (isIphone) {
             if (isFirefox) {
-                setPosition(new Vector3(-0.66, 0.0, -0.3))
+                setPosition(new Vector3(-0.66, 1.25, -0.3))
             } else {
-                setPosition(new Vector3(-0.33, 1.0, 0.0))
+                setPosition(new Vector3(-0.33, 1.25, 0.0))
             }
         } else {
             setPosition(new Vector3(-0.16, 1.12, 0.0))
