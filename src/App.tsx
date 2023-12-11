@@ -12,16 +12,19 @@ function App() {
   const [ripple_trigger,] = useRecoilState(Bear_Hovered)
   const [count, setCount] = useState(0)
   const canvasRef = useRef<HTMLDivElement>(null)
+
   const getRandomColor = () => {
-    const red = Math.floor(Math.random() * 256)
-    const green = Math.floor(Math.random() * 256)
-    const blue = Math.floor(Math.random() * 256)
-    return `rgba(${red}, ${green}, ${blue}, 0.3)`
+    const minColorValue = 100
+    const red = Math.floor(Math.random() * (256 - minColorValue) + minColorValue)
+    const green = Math.floor(Math.random() * (256 - minColorValue) + minColorValue)
+    const blue = Math.floor(Math.random() * (256 - minColorValue) + minColorValue)
+    const alpha = 0.5
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`
   }
 
   const createRippleEffect = useCallback((): HTMLElement => {
     const ripple = document.createElement("span")
-    ripple.style.position = 'absolute'
+    ripple.style.position = 'fixed'
     ripple.style.borderRadius = '50%'
     ripple.style.transform = 'scale(0)'
     ripple.style.animation = 'ripple-effect 600ms linear'
@@ -35,21 +38,21 @@ function App() {
       setCount(count + 1)
       const canvas = canvasRef.current
       if (!canvas) return
-      const rect = canvas.getBoundingClientRect();
+      const rect = canvas.getBoundingClientRect()
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
 
       // 複数の波紋を生成
       for (let i = 0; i < 8; i++) {
         const ripple = createRippleEffect();
-        ripple.style.width = ripple.style.height = `${100 + i * 20}px`
+        ripple.style.width = ripple.style.height = `${1 + i * 20}px`
         ripple.style.left = `${x - (50 + i * 10)}px`
         ripple.style.top = `${y - (50 + i * 10)}px`
 
         canvas.appendChild(ripple)
 
         setTimeout(() => {
-          ripple.remove();
+          ripple.remove()
         }, 600 + i * 100)
       }
     }
@@ -62,13 +65,13 @@ function App() {
       styleSheet.textContent = `
       @keyframes ripple-effect {
         from {opacity: 0;transform: scale(8);}
-        to {opacity: 1.5;transform: scale(0);}
+        to {opacity: Math.random() * 0.8;transform: scale(0);}
       }`
     } else {
       // スタイルシートの追加
       styleSheet.textContent = `
         @keyframes ripple-effect {
-          from {opacity: 1.5;transform: scale(0);}
+          from {opacity: Math.random() * 0.8;transform: scale(0);}
           to {opacity: 0;transform: scale(8);}
         }`
     }
