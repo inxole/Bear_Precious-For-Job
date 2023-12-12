@@ -18,7 +18,7 @@ function App() {
     const red = Math.floor(Math.random() * (256 - minColorValue) + minColorValue)
     const green = Math.floor(Math.random() * (256 - minColorValue) + minColorValue)
     const blue = Math.floor(Math.random() * (256 - minColorValue) + minColorValue)
-    const alpha = 0.5
+    const alpha = 0.3
     return `rgba(${red}, ${green}, ${blue}, ${alpha})`
   }
 
@@ -44,8 +44,8 @@ function App() {
 
       // 複数の波紋を生成
       for (let i = 0; i < 8; i++) {
-        const ripple = createRippleEffect();
-        ripple.style.width = ripple.style.height = `${1 + i * 20}px`
+        const ripple = createRippleEffect()
+        ripple.style.width = ripple.style.height = `${100 + i * 20}px`
         ripple.style.left = `${x - (50 + i * 10)}px`
         ripple.style.top = `${y - (50 + i * 10)}px`
 
@@ -57,6 +57,12 @@ function App() {
       }
     }
   }, [createRippleEffect, ripple_trigger, count])
+
+  const handleCanvasClickRef = useRef(handleCanvasClick)
+
+  useEffect(() => {
+    handleCanvasClickRef.current = handleCanvasClick
+  }, [handleCanvasClick])
 
   useEffect(() => {
     const styleSheet = document.createElement("style")
@@ -80,16 +86,14 @@ function App() {
     // スタイルシートとイベントリスナーの設定
     const canvas = canvasRef.current
     if (canvas) {
-      canvas.addEventListener('click', handleCanvasClick)
-    }
-    return () => {
-      // イベントリスナーのクリーンアップ
-      if (canvas) {
-        canvas.removeEventListener('click', handleCanvasClick)
+      const eventHandler = (event: MouseEvent) => handleCanvasClickRef.current(event)
+      canvas.addEventListener('click', eventHandler)
+      return () => {
+        canvas.removeEventListener('click', eventHandler)
         document.head.removeChild(styleSheet)
       }
     }
-  }, [handleCanvasClick, ripple_trigger, count])
+  }, [ripple_trigger, count])
 
   return (
     <div className="Bear_Precious" ref={canvasRef} style={{ position: 'relative' }}>
