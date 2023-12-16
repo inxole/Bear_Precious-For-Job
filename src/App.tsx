@@ -2,19 +2,56 @@ import { Canvas } from "@react-three/fiber"
 import { Field } from "./Field"
 import { Loader } from "@react-three/drei"
 import Zoom_ON_OFF from "./Zoom_Button"
-import { useEffect, useRef } from "react"
-import '../rippleEffect.css'
+import { useCallback, useEffect, useRef } from "react"
+import { Bear_Hovered, Model_in_Action } from "./Bear_atom"
+import { useRecoilState } from "recoil"
+
+const rippleStyle = {
+  position: 'absolute',
+  borderRadius: '50%',
+  width: '130px',
+  height: '130px',
+  backgroundColor: 'rgba(148, 217, 255, 0.7)',
+  transform: 'scale(0)',
+  animation: 'ripple-effect 0.6s linear',
+}
+
+// 拡大 expansion
+const ExpansionStyles = `
+  @keyframes ripple-effect {
+    from {
+      transform: scale(0);
+      opacity: 1;
+    }
+    to {
+      transform: scale(10);
+      opacity: 0;
+    }
+  }
+`
+// 縮小 reduction
+const ReductionStyles = `
+  @keyframes ripple-effect {
+    from {
+      transform: scale(10);
+      opacity: 0;
+    }
+    to {
+      transform: scale(0);
+      opacity: 1;
+    }
+  }
+`
 
 class Ripple {
   element: HTMLDivElement
-  animationDuration: number = 600 // アニメーションの持続時間
-
   constructor(x: number, y: number) {
     this.element = document.createElement('div')
-    this.element.classList.add('ripple')
-    this.element.style.left = `${x}px`
-    this.element.style.top = `${y}px`
+    Object.assign(this.element.style, rippleStyle)
+    this.element.style.left = `${x - 65}px`
+    this.element.style.top = `${y - 65}px`
 
+    // アニメーション終了-->要素削除
     this.element.addEventListener('animationend', () => {
       this.element.remove()
     })
@@ -22,32 +59,48 @@ class Ripple {
 }
 
 function App() {
+  const [inaction,] = useRecoilState(Model_in_Action)
+  const [ishovered,] = useRecoilState(Bear_Hovered)
+  const loaderStyle = { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
   const canvasRef = useRef<HTMLDivElement>(null)
+  const NonRef = useRef(null)
+
+  const canvasClick = useCallback((e: MouseEvent) => {
+    const container = canvasRef.current
+    if (!container || !ishovered) return; // Bear_Hoveredがfalseの場合は何もしない
+
+    const x = e.clientX
+    const y = e.clientY
+    const ripple = new Ripple(x, y)
+    container.appendChild(ripple.element)
+  }, [ishovered]) // ishoveredを依存関係に追加
+
 
   useEffect(() => {
+    // スタイルシートを追加
+    const styleSheet = document.createElement("style")
+    styleSheet.type = "text/css"
+    styleSheet.innerText = inaction ? ExpansionStyles : ReductionStyles
+    document.head.appendChild(styleSheet)
+
     const container = canvasRef.current
     if (!container) return
 
-    const canvasClick = (e: MouseEvent) => {
-      const x = e.clientX
-      const y = e.clientY
-      const ripple = new Ripple(x, y)
-      container.appendChild(ripple.element)
-    };
-
     container.addEventListener('click', canvasClick)
 
+    // クリーンアップ関数
     return () => {
       container.removeEventListener('click', canvasClick)
+      document.head.removeChild(styleSheet)
     }
-  }, [])
+  }, [inaction, canvasClick]) // canvasClickを依存関係に追加
 
-  const loaderStyle = { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
+
   return (
-    <div className="Bear_Precious" ref={canvasRef} style={{ position: 'relative' }} >
+    <div className="Bear_Precious" ref={ishovered ? canvasRef : NonRef} style={{ position: 'relative' }} >
       <Zoom_ON_OFF />
       <Canvas>
-        <Field></Field>
+        <Field />
       </Canvas>
       <Loader innerStyles={loaderStyle} />
     </div >

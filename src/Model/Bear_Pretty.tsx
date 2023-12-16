@@ -8,7 +8,7 @@ import { useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { useRecoilState } from 'recoil'
-import { Bear_Hovered } from '../Bear_atom'
+import { Bear_Hovered, Model_in_Action } from '../Bear_atom'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -55,20 +55,23 @@ const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials, animations } = useGLTF('/Bear_Pretty.glb') as GLTFResult
   const { actions } = useAnimations(animations, group)
 
-  const [ismoving, setIsMoving] = useState(true)
-  const [isClicked,] = useState(false)
   const [, setIsHovered] = useRecoilState(Bear_Hovered)
+  const [, setInAction] = useRecoilState(Model_in_Action)
+  const [ismoving, setIsMoving] = useState(false)
+  const [isClicked,] = useState(false)
 
   const moved = () => {
     if (actions['Standby_Motion'] == null) {
       throw new Error("This is not GLTFResult")
     }
     if (ismoving) {
-      actions['Standby_Motion'].play()
-      setIsMoving(false)
-    } else {
       actions['Standby_Motion'].stop()
+      setIsMoving(false)
+      setInAction(false)
+    } else {
+      actions['Standby_Motion'].play()
       setIsMoving(true)
+      setInAction(true)
     }
   }
 
