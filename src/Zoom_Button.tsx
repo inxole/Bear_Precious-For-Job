@@ -3,18 +3,19 @@ import { useRecoilState } from "recoil"
 import { Button_Click } from "./Bear_atom"
 import { useState } from "react"
 
-export const GradientButton = styled(Button)`
-  background: linear-gradient(45deg, #ffa000 30%, #ffc107 90%);
-  border-radius: 3px;
-  border: 0;
-  color: white;
-  height: 48px;
-  padding: 0 30px;
-  box-shadow: 0 3px 5px 2px rgba(255, 160, 0, 0.3);`
-
 const Zoom_ON_OFF = () => {
     const [count, setCount] = useState(0)
     const [a_u_pushed, setA_U_pushed] = useRecoilState(Button_Click)
+
+    const GradientButton = styled(Button)`
+    background: linear-gradient(45deg, #ffa000 30%, #ffc107 90%);
+    border-radius: 3px;
+    border: 0;
+    color: white;
+    height: 48px;
+    padding: 0 30px;
+    box-shadow: 0 3px 5px 2px rgba(255, 160, 0, 0.3);`
+
     const A_U_Click = () => {
         setA_U_pushed((x) => { return x })
         if (count % 2 == 0) {

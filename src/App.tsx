@@ -7,15 +7,14 @@ import { Bear_Hovered, Model_in_Action } from "./Bear_atom"
 import { useRecoilState } from "recoil"
 
 const rippleStyle = {
-  position: 'absolute',
+  position: 'fixed',
   borderRadius: '50%',
   width: '130px',
   height: '130px',
   backgroundColor: 'rgba(148, 217, 255, 0.7)',
   transform: 'scale(0)',
-  animation: 'ripple-effect 0.6s linear',
+  animation: 'ripple-effect 0.5s linear',
 }
-
 // 拡大 expansion
 const ExpansionStyles = `
   @keyframes ripple-effect {
@@ -38,11 +37,10 @@ const ReductionStyles = `
     }
     to {
       transform: scale(0);
-      opacity: 1;
+      opacity: 0.8;
     }
   }
 `
-
 class Ripple {
   element: HTMLDivElement
   constructor(x: number, y: number) {
@@ -50,8 +48,6 @@ class Ripple {
     Object.assign(this.element.style, rippleStyle)
     this.element.style.left = `${x - 65}px`
     this.element.style.top = `${y - 65}px`
-
-    // アニメーション終了-->要素削除
     this.element.addEventListener('animationend', () => {
       this.element.remove()
     })
@@ -67,17 +63,16 @@ function App() {
 
   const canvasClick = useCallback((e: MouseEvent) => {
     const container = canvasRef.current
-    if (!container || !ishovered) return; // Bear_Hoveredがfalseの場合は何もしない
+    if (!container || !ishovered) return
 
     const x = e.clientX
     const y = e.clientY
     const ripple = new Ripple(x, y)
     container.appendChild(ripple.element)
-  }, [ishovered]) // ishoveredを依存関係に追加
+  }, [ishovered])
 
 
   useEffect(() => {
-    // スタイルシートを追加
     const styleSheet = document.createElement("style")
     styleSheet.type = "text/css"
     styleSheet.innerText = inaction ? ExpansionStyles : ReductionStyles
@@ -87,14 +82,11 @@ function App() {
     if (!container) return
 
     container.addEventListener('click', canvasClick)
-
-    // クリーンアップ関数
     return () => {
       container.removeEventListener('click', canvasClick)
       document.head.removeChild(styleSheet)
     }
-  }, [inaction, canvasClick]) // canvasClickを依存関係に追加
-
+  }, [inaction, canvasClick])
 
   return (
     <div className="Bear_Precious" ref={ishovered ? canvasRef : NonRef} style={{ position: 'relative' }} >

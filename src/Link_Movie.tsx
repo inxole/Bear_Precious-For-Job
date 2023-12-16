@@ -16,11 +16,12 @@ const Link_to_Movie = () => {
     useEffect(() => {
         const isIphone = /iPhone/i.test(navigator.userAgent)
         const isFirefox = navigator.userAgent.includes("Firefox")
+        // const isChrome = navigator.userAgent.includes("Chrome") && !navigator.userAgent.includes("Edg")
         if (isIphone) {
             if (isFirefox) {
-                setPosition(new Vector3(-0.66, 1.25, -0.3))
+                setPosition(new Vector3(-0.66, 1.15, -0.3))
             } else {
-                setPosition(new Vector3(-0.33, 1.25, 0.0))
+                setPosition(new Vector3(-0.33, 1.12, 0.0))
             }
         } else {
             setPosition(new Vector3(-0.16, 1.12, 0.0))
