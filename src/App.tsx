@@ -1,9 +1,9 @@
-import { Canvas } from "@react-three/fiber"
+import { Canvas, ThreeEvent } from "@react-three/fiber"
 import { Field } from "./Field"
 import { Loader } from "@react-three/drei"
 import Zoom_ON_OFF from "./Zoom_Button"
 import { useCallback, useEffect, useRef } from "react"
-import { Bear_Hovered, Model_in_Action } from "./Bear_atom"
+import { Model_in_Action } from "./Bear_atom"
 import { useRecoilState } from "recoil"
 
 const rippleStyle = {
@@ -54,21 +54,19 @@ class Ripple {
   }
 }
 
-function App() {
+export function App() {
   const [inaction,] = useRecoilState(Model_in_Action)
-  const [ishovered,] = useRecoilState(Bear_Hovered)
   const loaderStyle = { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
   const canvasRef = useRef<HTMLDivElement>(null)
 
-  const canvasClick = useCallback((e: MouseEvent) => {
+  const canvasClick = useCallback((e: ThreeEvent<MouseEvent>) => {
     const container = canvasRef.current
-    if (!container || !ishovered) return
-
+    if (!container) return
     const x = e.clientX
     const y = e.clientY
     const ripple = new Ripple(x, y)
     container.appendChild(ripple.element)
-  }, [ishovered])
+  }, [])
 
   useEffect(() => {
     const styleSheet = document.createElement("style")
@@ -76,21 +74,16 @@ function App() {
     styleSheet.innerText = inaction ? ExpansionStyles : ReductionStyles
     document.head.appendChild(styleSheet)
 
-    const container = canvasRef.current
-    if (!container) return
-
-    container.addEventListener('click', canvasClick)
     return () => {
-      container.removeEventListener('click', canvasClick)
       document.head.removeChild(styleSheet)
     }
-  }, [inaction, canvasClick])
+  }, [inaction])
 
   return (
     <div className="Bear_Precious" ref={canvasRef} style={{ position: 'relative' }} >
       <Zoom_ON_OFF />
       <Canvas>
-        <Field />
+        <Field CallBack={canvasClick} />
       </Canvas>
       <Loader innerStyles={loaderStyle} />
     </div >

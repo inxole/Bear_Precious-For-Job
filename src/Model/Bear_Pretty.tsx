@@ -8,7 +8,12 @@ import { useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { useRecoilState } from 'recoil'
-import { Bear_Hovered, Model_in_Action } from '../Bear_atom'
+import { Model_in_Action } from '../Bear_atom'
+import { ThreeEvent } from '@react-three/fiber'
+
+interface CanvasClickProps {
+  CallBack: (e: ThreeEvent<MouseEvent>) => void
+}
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -50,33 +55,29 @@ interface GLTFAction extends THREE.AnimationClip {
 
 // type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['skinnedMesh'] | JSX.IntrinsicElements['bone']>>
 
-const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group']) => {
+const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group'] & CanvasClickProps) => {
   const group = useRef<THREE.Group>(null)
   const { nodes, materials, animations } = useGLTF('/Bear_Pretty.glb') as GLTFResult
   const { actions } = useAnimations(animations, group)
-
-  const [, setIsHovered] = useRecoilState(Bear_Hovered)
   const [inaction, setInAction] = useRecoilState(Model_in_Action)
 
-  const moved = () => {
+  const moved = (e: ThreeEvent<MouseEvent>) => {
     if (actions['Standby_Motion'] == null) {
       throw new Error("This is not GLTFResult")
     }
     if (inaction) {
+      props.CallBack(e)
       actions['Standby_Motion'].stop()
       setInAction(false)
-      setInAction((x) => { return x })
     } else {
+      props.CallBack(e)
       actions['Standby_Motion'].play()
       setInAction(true)
-      setInAction((x) => { return x })
     }
   }
 
   return (
-    <group ref={group} {...props} dispose={null} onClick={moved}
-      onPointerOver={() => { setIsHovered(true), console.log("yes") }} onPointerOut={() => { setIsHovered(false), console.log("no") }}
-    >
+    <group ref={group} {...props} dispose={null} onClick={moved}>
       <group name="Scene">
         <group name="Armature" position={[0, 0.159, -0.193]} rotation={[Math.PI / 2, 0, 0]} scale={0.161}>
           <primitive object={nodes.Root_Bone} />
