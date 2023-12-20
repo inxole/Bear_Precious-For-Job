@@ -2,7 +2,7 @@ import { Canvas, ThreeEvent } from "@react-three/fiber"
 import { Field } from "./Field"
 import { Loader } from "@react-three/drei"
 import Zoom_ON_OFF from "./Zoom_Button"
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useRef } from "react"
 import { Model_in_Action } from "./Bear_atom"
 import { useRecoilState } from "recoil"
 
@@ -68,19 +68,9 @@ export function App() {
     container.appendChild(ripple.element)
   }, [])
 
-  useEffect(() => {
-    const styleSheet = document.createElement("style")
-    styleSheet.type = "text/css"
-    styleSheet.innerText = inaction ? ExpansionStyles : ReductionStyles
-    document.head.appendChild(styleSheet)
-
-    return () => {
-      document.head.removeChild(styleSheet)
-    }
-  }, [inaction])
-
   return (
     <div className="Bear_Precious" ref={canvasRef} style={{ position: 'relative' }} >
+      <style >{inaction ? ExpansionStyles : ReductionStyles}</style>
       <Zoom_ON_OFF />
       <Canvas>
         <Field CallBack={canvasClick} />
