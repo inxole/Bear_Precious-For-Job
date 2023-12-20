@@ -59,7 +59,6 @@ function App() {
   const [ishovered,] = useRecoilState(Bear_Hovered)
   const loaderStyle = { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
   const canvasRef = useRef<HTMLDivElement>(null)
-  const NonRef = useRef(null)
 
   const canvasClick = useCallback((e: MouseEvent) => {
     const container = canvasRef.current
@@ -70,7 +69,6 @@ function App() {
     const ripple = new Ripple(x, y)
     container.appendChild(ripple.element)
   }, [ishovered])
-
 
   useEffect(() => {
     const styleSheet = document.createElement("style")
@@ -89,7 +87,7 @@ function App() {
   }, [inaction, canvasClick])
 
   return (
-    <div className="Bear_Precious" ref={ishovered ? canvasRef : NonRef} style={{ position: 'relative' }} >
+    <div className="Bear_Precious" ref={canvasRef} style={{ position: 'relative' }} >
       <Zoom_ON_OFF />
       <Canvas>
         <Field />

@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.15 .\Bear_Pretty.glb -t
 */
 
 import * as THREE from 'three'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { useRecoilState } from 'recoil'
@@ -56,29 +56,27 @@ const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group']) => {
   const { actions } = useAnimations(animations, group)
 
   const [, setIsHovered] = useRecoilState(Bear_Hovered)
-  const [, setInAction] = useRecoilState(Model_in_Action)
-  const [ismoving, setIsMoving] = useState(false)
-  const [isClicked,] = useState(false)
+  const [inaction, setInAction] = useRecoilState(Model_in_Action)
 
   const moved = () => {
     if (actions['Standby_Motion'] == null) {
       throw new Error("This is not GLTFResult")
     }
-    if (ismoving) {
+    if (inaction) {
       actions['Standby_Motion'].stop()
-      setIsMoving(false)
       setInAction(false)
+      setInAction((x) => { return x })
     } else {
       actions['Standby_Motion'].play()
-      setIsMoving(true)
       setInAction(true)
+      setInAction((x) => { return x })
     }
   }
 
-  const stoped = () => { }
-
   return (
-    <group ref={group} {...props} dispose={null} onClick={isClicked ? stoped : moved} onPointerOver={() => { setIsHovered(true) }} onPointerLeave={() => { setIsHovered(false) }}>
+    <group ref={group} {...props} dispose={null} onClick={moved}
+      onPointerOver={() => { setIsHovered(true), console.log("yes") }} onPointerOut={() => { setIsHovered(false), console.log("no") }}
+    >
       <group name="Scene">
         <group name="Armature" position={[0, 0.159, -0.193]} rotation={[Math.PI / 2, 0, 0]} scale={0.161}>
           <primitive object={nodes.Root_Bone} />
