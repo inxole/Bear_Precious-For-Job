@@ -15,7 +15,7 @@ function checkWebGLCapabilities() {
     const maxTextureSize = webgl.getParameter(webgl.MAX_TEXTURE_SIZE)
 
     // WebGLの能力が一定の基準以下かどうかをチェック
-    const capabilityThreshold = 16000
+    const capabilityThreshold = 10000
     return maxRenderBufferSize >= capabilityThreshold && maxTextureSize >= capabilityThreshold
 }
 
