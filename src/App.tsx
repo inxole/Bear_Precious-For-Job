@@ -5,6 +5,9 @@ import Zoom_ON_OFF from "./Zoom_Button"
 import { useCallback, useRef } from "react"
 import { Model_in_Action } from "./Bear_atom"
 import { useRecoilState } from "recoil"
+import Double_Button from "./terms_of_service"
+import Grid from '@mui/material/Unstable_Grid2'
+import Box from '@mui/material/Box'
 
 const rippleStyle = {
   position: 'fixed',
@@ -71,7 +74,20 @@ export function App() {
   return (
     <div className="Bear_Precious" ref={canvasRef} style={{ position: 'relative' }} >
       <style >{inaction ? ExpansionStyles : ReductionStyles}</style>
-      <Zoom_ON_OFF />
+
+      <span style={{ display: 'flex', justifyContent: 'center' }} >
+        <Box component="span" pt={1}>
+          <Grid container spacing={1}>
+            <Grid xs={6}>
+              <Zoom_ON_OFF />
+            </Grid>
+            <Grid xs={6}>
+              <Double_Button />
+            </Grid>
+          </Grid>
+        </Box>
+      </span>
+
       <Canvas>
         <Field CallBack={canvasClick} />
       </Canvas>

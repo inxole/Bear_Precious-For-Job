@@ -6,7 +6,6 @@ import Bear_Pretty_Latest from "./Model/Bear_Pretty"
 import { Button_Click } from "./Bear_atom"
 import { useRecoilState } from "recoil"
 import Link_to_Movie from "./Link_Movie"
-// import { RippleRenderer } from "./Distortion"
 
 interface CanvasClickProps {
     CallBack: (e: ThreeEvent<MouseEvent>) => void
@@ -46,22 +45,3 @@ export function Field(props: CanvasClickProps) {
         </Suspense>
     )
 }
-
-// const animationRunning = false
-// const texture = new THREE.Texture()
-// const rippleEffect = new RippleRenderer(texture)
-
-// const animate = () => {
-//     rippleEffect.update(renderer, uniform)
-
-//     if (animationRunning) {
-//         requestAnimationFrame(animate);
-//     }
-// }
-
-// const handleClick = () => {
-//     if (!animationRunning) {
-//         animationRunning = true
-//         animate()
-//     }
-// }

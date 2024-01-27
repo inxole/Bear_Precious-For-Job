@@ -59,7 +59,7 @@ const Link_to_Movie = () => {
                     }}
                 >
                     <a
-                    href={"https://youtu.be/MHD676NUy9c"} target={"_blank"} rel={"noopener noreferrer"}
+                    href={"https://youtu.be/jgwZW6kKZ7E"} target={"_blank"} rel={"noopener noreferrer"}
                     >
                         動画へ
                     </a>
