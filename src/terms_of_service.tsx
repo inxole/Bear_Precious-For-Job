@@ -11,7 +11,7 @@ const Double_Button = () => {
     return (
         <span style={{ display: 'flex', justifyContent: 'center' }} >
             <Button variant="contained" color="primary" style={{ height: '60px', width: '100px' }} onClick={handleClickOpen}>
-                利用規約
+                注意事項
             </Button>
             <Dialog
                 open={open}
@@ -35,7 +35,7 @@ const Double_Button = () => {
                 }}
             >
                 <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center', fontSize: 'large' }} >
-                    利用規約
+                    このサイトについて
                 </DialogTitle>
                 <DialogContent dividers>
                     <DialogContentText id="alert-dialog-description" sx={{ textAlign: 'center', fontSize: 'medium', fontWeight: 'bold' }} >プライバシーポリシー</DialogContentText>
