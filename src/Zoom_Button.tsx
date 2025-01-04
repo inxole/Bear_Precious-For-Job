@@ -1,11 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material"
-import { useRecoilState } from "recoil"
 import { Button_Click } from "./Bear_atom"
 import { useState } from "react"
+import { useAtom } from "jotai"
 
 const Zoom_ON_OFF = () => {
     const [count, setCount] = useState(0)
-    const [a_u_pushed, setA_U_pushed] = useRecoilState(Button_Click)
+    const [a_u_pushed, setA_U_pushed] = useAtom(Button_Click)
 
     const A_U_Click = () => {
         setA_U_pushed((x) => { return x })

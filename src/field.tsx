@@ -4,15 +4,15 @@ import { Vector3 } from "three"
 import { ThreeEvent, useThree } from "@react-three/fiber"
 import Bear_Pretty_Latest from "./Model/Bear_Pretty"
 import { Button_Click } from "./Bear_atom"
-import { useRecoilState } from "recoil"
 import Link_to_Movie from "./Link_Movie"
+import { useAtomValue } from "jotai"
 
 interface CanvasClickProps {
     CallBack: (e: ThreeEvent<MouseEvent>) => void
 }
 
 export function Field(props: CanvasClickProps) {
-    const [a_u_pushed,] = useRecoilState(Button_Click)
+    const a_u_pushed = useAtomValue(Button_Click)
     const { camera } = useThree()
     const viewinfo = window.document
     useEffect(() => {

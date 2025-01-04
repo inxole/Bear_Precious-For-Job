@@ -4,10 +4,10 @@ import { Loader } from "@react-three/drei"
 import Zoom_ON_OFF from "./Zoom_Button"
 import { useCallback, useRef } from "react"
 import { Model_in_Action } from "./Bear_atom"
-import { useRecoilState } from "recoil"
 import Double_Button from "./terms_of_service"
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '@mui/material/Grid2'
 import Box from '@mui/material/Box'
+import { useAtomValue } from "jotai"
 
 const rippleStyle = {
   position: 'fixed',
@@ -58,8 +58,8 @@ class Ripple {
 }
 
 export function App() {
-  const [inaction,] = useRecoilState(Model_in_Action)
-  const loaderStyle = { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
+  const inaction = useAtomValue(Model_in_Action)
+  const loaderStyle: React.CSSProperties = { position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
   const canvasRef = useRef<HTMLDivElement>(null)
 
   const canvasClick = useCallback((e: ThreeEvent<MouseEvent>) => {
@@ -78,10 +78,10 @@ export function App() {
       <span style={{ display: 'flex', justifyContent: 'center' }} >
         <Box component="span" pt={1}>
           <Grid container spacing={1}>
-            <Grid xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Zoom_ON_OFF />
             </Grid>
-            <Grid xs={6}>
+            <Grid size={{ xs: 6 }}>
               <Double_Button />
             </Grid>
           </Grid>
