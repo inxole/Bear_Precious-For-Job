@@ -7,9 +7,9 @@ import * as THREE from 'three'
 import { useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useRecoilState } from 'recoil'
 import { Model_in_Action } from '../Bear_atom'
 import { ThreeEvent } from '@react-three/fiber'
-import { useAtom } from 'jotai'
 
 interface CanvasClickProps {
   CallBack: (e: ThreeEvent<MouseEvent>) => void
@@ -55,11 +55,11 @@ interface GLTFAction extends THREE.AnimationClip {
 
 // type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['skinnedMesh'] | JSX.IntrinsicElements['bone']>>
 
-const Bear_Pretty_Latest = (props: JSX.IntrinsicElements["positionMesh"] & CanvasClickProps) => {
+const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['group'] & CanvasClickProps) => {
   const group = useRef<THREE.Group>(null)
   const { nodes, materials, animations } = useGLTF('/Bear_Pretty.glb') as GLTFResult
   const { actions } = useAnimations(animations, group)
-  const [inaction, setInAction] = useAtom(Model_in_Action)
+  const [inaction, setInAction] = useRecoilState(Model_in_Action)
 
   const moved = (e: ThreeEvent<MouseEvent>) => {
     if (actions['Standby_Motion'] == null) {
