@@ -55,7 +55,7 @@ interface GLTFAction extends THREE.AnimationClip {
 
 // type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['skinnedMesh'] | JSX.IntrinsicElements['bone']>>
 
-const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['positionMesh'] & CanvasClickProps) => {
+const Bear_Precious = (props: JSX.IntrinsicElements['positionMesh'] & CanvasClickProps) => {
   const group = useRef<THREE.Group>(null)
   const { nodes, materials, animations } = useGLTF('/Bear_Pretty.glb') as GLTFResult
   const { actions } = useAnimations(animations, group)
@@ -106,5 +106,5 @@ const Bear_Pretty_Latest = (props: JSX.IntrinsicElements['positionMesh'] & Canva
   )
 }
 
-export default Bear_Pretty_Latest
+export default Bear_Precious
 useGLTF.preload('/Bear_Pretty.glb')

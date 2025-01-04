@@ -2,7 +2,7 @@ import { ContactShadows, Environment, OrbitControls, PerspectiveCamera } from "@
 import { Suspense, useEffect } from "react"
 import { Vector3 } from "three"
 import { ThreeEvent, useThree } from "@react-three/fiber"
-import Bear_Pretty_Latest from "./Model/Bear_Pretty"
+import Bear_Precious from "./Model/Bear_Precious"
 import { Button_Click } from "./Bear_atom"
 import Link_to_Movie from "./Link_Movie"
 import { useAtomValue } from "jotai"
@@ -31,7 +31,7 @@ export function Field(props: CanvasClickProps) {
             />
             <PerspectiveCamera makeDefault position={[1, 1, 1]} />
 
-            <Bear_Pretty_Latest position={[0, 0, 0]} CallBack={props.CallBack} />
+            <Bear_Precious position={[0, 0, 0]} CallBack={props.CallBack} />
             <Link_to_Movie />
 
             <ContactShadows
