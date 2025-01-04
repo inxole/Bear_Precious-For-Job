@@ -2,6 +2,17 @@ import { Html } from "@react-three/drei"
 import { useEffect, useState } from "react"
 import { Vector3 } from "three"
 import * as THREE from "three"
+import { ThreeElements } from "@react-three/fiber"
+
+declare global {
+    namespace React {
+        namespace JSX {
+            interface IntrinsicElements extends ThreeElements {
+                mesh: ThreeElements['mesh']
+            }
+        }
+    }
+}
 
 const Link_to_Movie = () => {
     const hide_geometry = new THREE.PlaneGeometry(0.5, 0.5)
@@ -59,7 +70,7 @@ const Link_to_Movie = () => {
                     }}
                 >
                     <a
-                    href={"https://youtu.be/jgwZW6kKZ7E"} target={"_blank"} rel={"noopener noreferrer"}
+                        href={"https://youtu.be/jgwZW6kKZ7E"} target={"_blank"} rel={"noopener noreferrer"}
                     >
                         動画へ
                     </a>
