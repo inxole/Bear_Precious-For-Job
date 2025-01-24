@@ -24,18 +24,19 @@ const Double_Button = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         margin: 0,
-                        maxHeight: '100%',
+                        padding: 10,
                         position: 'fixed',
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                         height: '550px',
+                        width: '360px',
                         overflow: 'hidden'
                     },
                 }}
             >
                 <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center', fontSize: 'large' }} >
-                    このサイトについて
+                    利用規約
                 </DialogTitle>
                 <DialogContent dividers>
                     <DialogContentText id="alert-dialog-description" sx={{ textAlign: 'center', fontSize: 'medium', fontWeight: 'bold' }} >プライバシーポリシー</DialogContentText>
@@ -60,6 +61,23 @@ const Double_Button = () => {
                     </Typography>
                     <Typography gutterBottom id="alert-dialog-description" sx={{ textAlign: 'start', fontSize: 'small' }} >
                         3. 利用規約の変更：当サイトは、予告なく利用規約を変更することがあります。変更後の利用規約は、当サイトに掲載された時点から効力を発揮します。
+                    </Typography>
+                    <DialogContentText sx={{ textAlign: 'center', fontSize: 'medium', fontWeight: 'bold' }} >引用元</DialogContentText>
+                    <Typography gutterBottom sx={{ textAlign: 'start', fontSize: 'small' }} >
+                        1. このウェブサイトは、スクエアエニックスの『NieRシリーズ』に基づく非公式のファンコンテンツです。二次創作ガイドライン（2021年2月2日発行）に準拠して運営されていますが、スクエアエニックスとは一切関係ありません。
+                    </Typography>
+                    <Typography gutterBottom sx={{ textAlign: 'start', fontSize: 'small' }} >
+                        2. 二次創作ガイドラインの詳細については、以下のリンクをご確認ください：
+                        <a href="https://blog.jp.square-enix.com/nier/2021/02/02/nier_1.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: '#1976d2', textDecoration: 'none' }}
+                        >
+                            https://blog.jp.square-enix.com/nier/2021/02/02/nier_1.html
+                        </a>
+                    </Typography>
+                    <Typography gutterBottom sx={{ textAlign: 'start', fontSize: 'small' }} >
+                        3. © 2021 SQUARE ENIX CO., LTD. All Rights Reserved.
                     </Typography>
                 </DialogContent>
                 <DialogActions sx={{ justifyContent: 'center', height: "48px" }}>
