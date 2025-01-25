@@ -4,7 +4,6 @@ import { Vector3 } from "three"
 import { ThreeEvent, useThree } from "@react-three/fiber"
 import Bear_Precious from "./Model/Bear_Precious"
 import { Button_Click } from "./Bear_atom"
-import Link_to_Movie from "./Link_Movie"
 import { useAtomValue } from "jotai"
 
 interface CanvasClickProps {
@@ -32,7 +31,6 @@ export function Field(props: CanvasClickProps) {
             <PerspectiveCamera makeDefault position={[1, 1, 1]} />
 
             <Bear_Precious position={[0, 0, 0]} CallBack={props.CallBack} />
-            <Link_to_Movie />
 
             <ContactShadows
                 opacity={0.5}
